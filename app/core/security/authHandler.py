@@ -1,6 +1,7 @@
 import jwt
+from jwt import ExpiredSignatureError, InvalidTokenError
 from decouple import config
-import time
+import datetime
 
 JWT_SECRET = config("JWT_SECRET")
 JWT_ALGORITHM = config("JWT_ALGORITHM")
@@ -12,16 +13,20 @@ class AuthHandler(object):
 
         payload = {
             "user_id": user_id,
-            "expires": time.time() + 900
+            "exp": datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(minutes=15)
         }
 
-        token = jwt.encode(payload=payload,key= JWT_SECRET,algorithm=JWT_ALGORITHM)
-        return token
+        return jwt.encode(payload=payload,key= JWT_SECRET,algorithm=JWT_ALGORITHM)
+
 
     @staticmethod
     def decode_jwt(token:str) -> dict:
         try:
             decoded_token = jwt.decode(token,JWT_SECRET,algorithms=[JWT_ALGORITHM])
-            return decoded_token if decoded_token['expires'] >= time.time() else None
-        except:
-            print('Unable to decode the token')
+            return decoded_token
+        except ExpiredSignatureError:
+            print('Token has expired')
+            return None
+        except InvalidTokenError:
+            print('Invalid token')
+            return None
