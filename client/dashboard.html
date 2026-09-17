@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Панель управления</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div class="card wide">
+    <div class="dash-header">
+      <div>
+        <h1>Панель управления</h1>
+        <div class="dash-email">Вы вошли как <span id="dash-email">—</span></div>
+      </div>
+      <button class="btn secondary" id="logout-btn" style="width: auto; padding: 8px 16px">Выйти</button>
+    </div>
+
+    <hr class="divider" />
+
+    <form id="sentiment-form">
+      <div class="field">
+        <label for="sentiment-text">Анализ тональности текста</label>
+        <textarea id="sentiment-text" placeholder="Type or paste some text…" required></textarea>
+      </div>
+
+      <button class="btn" type="submit">Анализировать тональность</button>
+      <div class="status" id="sentiment-error"></div>
+    </form>
+
+    <div class="result" id="result">
+      <span class="result-label" id="result-label"></span>
+      <div class="result-confidence" id="result-confidence"></div>
+    </div>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>

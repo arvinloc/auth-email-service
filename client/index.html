@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sign in</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div class="card">
+    <div class="tabs">
+      <button class="tab active" id="tab-login" type="button">Войти</button>
+      <button class="tab" id="tab-signup" type="button">Создать аккаунт</button>
+    </div>
+
+    <form id="form-login">
+      <h1>Добро пожаловать</h1>
+      <p class="sub">Войти с почтой и паролем</p>
+
+      <div class="field">
+        <label for="login-email">Почта</label>
+        <input id="login-email" type="email" required autocomplete="email" />
+      </div>
+      <div class="field">
+        <label for="login-password">Пароль</label>
+        <input id="login-password" type="password" required autocomplete="current-password" />
+      </div>
+
+      <button class="btn" type="submit">Войти</button>
+    </form>
+
+    <form id="form-signup" style="display: none">
+      <h1>Создайте свой аккаунт</h1>
+      <p class="sub">Мы отправим ссылку для подтверждения на вашу элетронную почту</p>
+
+      <div class="field">
+        <label for="signup-email">Почта</label>
+        <input id="signup-email" type="email" required autocomplete="email" />
+      </div>
+      <div class="field">
+        <label for="signup-password">Пароль</label>
+        <input id="signup-password" type="password" required autocomplete="new-password" minlength="6" />
+      </div>
+
+      <button class="btn" type="submit">Создать аккаунт</button>
+    </form>
+
+    <div class="status" id="status"></div>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+</body>
+</html>
