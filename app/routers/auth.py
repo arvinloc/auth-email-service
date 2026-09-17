@@ -31,5 +31,5 @@ def verify_magic_link(token:str,session:Session=Depends(get_db)):
     jwt_token = AuthHandler.sign_jwt(user_id=user.id)
 
     return {
-        "token":"jwt_token"
+        "token": jwt_token
     }
