@@ -6,7 +6,6 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 
 WORKDIR /app
 
-# системные зависимости, нужные psycopg2/bcrypt
 RUN apt-get update && apt-get install -y --no-install-recommends \
     gcc libpq-dev \
     && rm -rf /var/lib/apt/lists/*
@@ -17,7 +16,7 @@ RUN pip install -r requirements.txt
 COPY app ./app
 COPY main.py .
 
-# запускаем НЕ от root
+
 RUN useradd -m appuser
 USER appuser
 
