@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends
-from app.db.schema.user import UserInCreate, UserInLogin, UserWithToken,UserOutput
+from app.db.schema.user import UserInCreate, UserInLogin, UserWithToken,UserOutput,MagicLinkVerify
 from app.core.database import get_db
 from sqlalchemy.orm import Session
 from app.service.userService import UserService
@@ -24,9 +24,9 @@ def signup(payload: UserInCreate,session:Session = Depends(get_db)):
         "message":"Check your email to confirm registration"
     }
 
-@authRouter.get("/magic-link/verify")
-def verify_magic_link(token:str,session:Session=Depends(get_db)):
-    user = UserService(session=session).consume_magic_link(token)
+@authRouter.post("/magic-link/verify")
+def verify_magic_link(payload: MagicLinkVerify,session:Session=Depends(get_db)):
+    user = UserService(session=session).consume_magic_link(payload.token)
 
     jwt_token = AuthHandler.sign_jwt(user_id=user.id)
 

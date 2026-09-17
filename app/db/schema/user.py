@@ -20,3 +20,7 @@ class UserInLogin(BaseModel):
 
 class UserWithToken(BaseModel):
     token: str
+
+
+class MagicLinkVerify(BaseModel):
+    token: str

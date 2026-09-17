@@ -26,3 +26,11 @@ class UserRepository(BaseRepository):
         user = self.session.query(User).filter_by(id=user_id).first()
 
         return user
+
+    def mark_verified(self,user:User) -> User:
+        user.is_verified = True
+        self.session.add(user)
+        self.session.commit()
+        self.session.refresh(user)
+
+        return user
