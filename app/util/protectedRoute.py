@@ -31,7 +31,6 @@ def get_current_user(session: Session = Depends(get_db),
 
             return UserOutput(
                 id=user.id,
-                username=user.username,
                 email=user.email
             )
         except Exception as error:
