@@ -4,7 +4,13 @@ from app.core.database import get_db
 from sqlalchemy.orm import Session
 from app.service.userService import UserService
 from app.core.security.authHandler import AuthHandler
+from app.core.logging.logger import setup_logging, get_logger
+
 authRouter = APIRouter()
+
+
+setup_logging()
+logger = get_logger(__name__)
 
 
 @authRouter.post("/login", status_code=200, response_model=UserWithToken)
@@ -12,7 +18,7 @@ def login(payload: UserInLogin, session: Session = Depends(get_db)):
     try:
         return UserService(session=session).login(login_data=payload)
     except Exception as error:
-        print(error)
+        logger.error(error)
         raise error
 
 
