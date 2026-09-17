@@ -1,9 +1,12 @@
 import joblib
+from pathlib import Path
 
-MODEL_PATH = '../models/sentiment_analyzer.joblib'
+MODEL_PATH = Path(__file__).resolve().parent.parent.parent.parent / \
+    "models" / "sentiment_analyzer.joblib"
 
 
 pipeline = None
+
 
 def get_pipeline():
     global pipeline

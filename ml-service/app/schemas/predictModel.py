@@ -1,8 +1,10 @@
 from pydantic import BaseModel
 
+
 class PredictRequest(BaseModel):
-    text:str
+    text: str
+
 
 class PredictResponse(BaseModel):
-    label:str
-    proba:float
+    label: str
+    proba: float
