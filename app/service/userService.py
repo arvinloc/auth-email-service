@@ -9,10 +9,10 @@ from fastapi import HTTPException
 import secrets
 import hashlib
 from datetime import timezone,timedelta,datetime
-
+from decouple import config 
 
 MAGIC_LINK_TTL_MINUTES = 15
-FRONT_MAGIC_LINK = "http://localhost:8000/auth/magic-link/verify"
+FRONT_MAGIC_LINK = config('FRONTEND_MAGIC_LINK_URL')
 
 class UserService:
     def __init__(self,session:Session):
@@ -40,7 +40,12 @@ class UserService:
             hashed_password=user.password):
 
             raise HTTPException(status_code=401,detail="Invalid email or password")
+
+        if not user.is_verified:
+            raise HTTPException(status_code=403, detail="Please confirm your email before logging in")
+        
         token = AuthHandler.sign_jwt(user_id=user.id)
+
         if not token:
             raise HTTPException(status_code=500,detail="Unable to process request")
 
@@ -91,6 +96,9 @@ class UserService:
 
         if not user:
             raise HTTPException(status_code=400, detail="Invalid or expired link")
+
+        if not user.is_verified:
+            self.__userRepository.mark_verified(user)
 
         return user
 
