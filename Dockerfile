@@ -17,8 +17,8 @@ COPY app ./app
 COPY main.py .
 
 
-RUN useradd -m appuser
-USER appuser
+RUN useradd -m myuser
+USER myuser
 
 EXPOSE 8000
 
